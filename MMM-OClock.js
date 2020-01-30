@@ -135,7 +135,9 @@ Module.register("MMM-OClock", {
     var now = this.getNow()
     var ctx = this.getCtx()
     this.secondsCfg.pros = lastTick ? 1 : this.getPros(now, this.secondsCfg.type)
-    this.drawArc(ctx, this.secondsCfg)
+    var post = this.drawArc(ctx, this.secondsCfg)
+    post.t = now.format(this.config.handTextFormat[this.config.hands.indexOf('second')])
+    this.drawPost(ctx, post)
     if (lastTick) return
 
     let msecs = now.milliseconds()
@@ -385,7 +387,7 @@ Module.register("MMM-OClock", {
   },
 
   drawPost: function(ctx, item) {
-    if (item.h === 'second') return
+    // if (item.h === 'second') return
     if (this.config.useNail) {
       let nailSize = this.config.nailSize
       ctx.beginPath()
